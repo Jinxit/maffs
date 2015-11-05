@@ -31,4 +31,28 @@ namespace maffs
 
         return {mu, std::sqrt(variance)};
     }
+
+    // returns (mean, stddev)
+    template<class InputIt, class T>
+    std::pair<float, float>
+    estimate_normal_distribution(InputIt first, InputIt last, T min, T max)
+    {
+        assert(std::distance(first, last) > 0);
+
+        T mean{};
+        for (auto it = first; it != last; ++it)
+        {
+            mean += *it;
+        }
+        mean /= std::distance(first, last);
+
+        T variance{};
+        for (auto it = first; it != last; ++it)
+        {
+            variance += std::pow(*it - mean, 2);
+        }
+        variance /= std::distance(first, last);
+
+        return {mean, std::sqrt(variance)};
+    }
 }
