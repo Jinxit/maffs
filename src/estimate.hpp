@@ -2,6 +2,7 @@
 
 #include <complex>
 #include <cmath>
+#include <cassert>
 
 namespace maffs
 {
@@ -10,6 +11,8 @@ namespace maffs
     std::pair<float, float>
     estimate_wrapped_normal_distribution(InputIt first, InputIt last, T min, T max)
     {
+        assert(std::distance(first, last) > 0);
+
         std::complex<T> z;
         T r2_cos{};
         T r2_sin{};
